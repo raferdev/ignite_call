@@ -1,14 +1,21 @@
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
-import { ArrowRight } from '@phosphor-icons/react'
-import { signIn } from 'next-auth/react'
+import { ArrowRight, Check } from '@phosphor-icons/react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router.js'
 import { Container, Header } from '../styles'
-import { ConnectBox, ConnectItem } from './styles'
+import { AuthError, ConnectBox, ConnectItem } from './styles'
 
 export default function Register() {
-  /*   const session = useSession()
-   */
-  /*   async function handleRegister(data: RegisterFormData) {}
-   */
+  const session = useSession()
+
+  const router = useRouter()
+
+  const hasAuthError = !!router.query.error
+  const isSignIn = session.status === 'authenticated'
+  async function handleConnectCalendar() {
+    signIn('google')
+  }
+
   return (
     <Container>
       <Header>
@@ -22,17 +29,29 @@ export default function Register() {
         <ConnectBox>
           <ConnectItem>
             <Text>Google Calendar</Text>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => signIn('google')}
-            >
-              Connect
-              <ArrowRight />
-            </Button>
+            {isSignIn ? (
+              <Button size="sm" disabled>
+                Connected
+                <Check />
+              </Button>
+            ) : (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={handleConnectCalendar}
+              >
+                Connect
+                <ArrowRight />
+              </Button>
+            )}
           </ConnectItem>
-
-          <Button type="submit">
+          {hasAuthError && (
+            <AuthError size="sm">
+              Failed on connect with google, please verify if you have enabled
+              the needed permissions.
+            </AuthError>
+          )}
+          <Button type="submit" disabled={!isSignIn}>
             Next Step
             <ArrowRight />
           </Button>

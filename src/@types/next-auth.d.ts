@@ -1,4 +1,5 @@
-import NextAuth from 'next-auth'
+import { NextApiRequest, NextApiResponse, NextPageContext } from 'next'
+import { AuthOptions } from 'next-auth'
 
 declare module 'next-auth' {
   interface User {
@@ -12,4 +13,7 @@ declare module 'next-auth' {
   interface Session {
     user:User
   }
+
+  function NextAuth(req: NextPageContext['req'] | NextApiRequest,res:NextPageContext['res'] | NextApiResponse, options:AuthOptions ):any
+
 }

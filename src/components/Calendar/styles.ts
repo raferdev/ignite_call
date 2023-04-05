@@ -18,6 +18,7 @@ export const CalendarTitle = styled(Text, {
   span: {
     color: '$gray200',
   },
+  textTransform: 'capitalize',
 })
 
 export const CalendarActions = styled('div', {

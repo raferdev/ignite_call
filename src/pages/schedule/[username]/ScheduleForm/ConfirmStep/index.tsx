@@ -1,5 +1,5 @@
 import { CalendarBlank, Clock } from '@phosphor-icons/react'
-import { ConfirmForm, FormActions, FormError, FormHeader } from './styles.js'
+import { ConfirmForm, FormActions, FormError, FormHeader } from './styles'
 import { Button, Text, TextArea, TextInput } from '@ignite-ui/react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'

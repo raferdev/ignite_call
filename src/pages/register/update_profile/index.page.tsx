@@ -18,6 +18,7 @@ import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { getServerSession } from 'next-auth/next/index'
 import { api } from '@/lib/axios.js'
 import { useRouter } from 'next/router.js'
+import { NextSeo } from 'next-seo'
 
 const updateProfileSchema = z.object({
   bio: z.string(),
@@ -45,33 +46,36 @@ export default function UpdateProfile() {
   }
 
   return (
-    <Container>
-      <Header>
-        <Heading as="strong">Wellcome to Ignite Call</Heading>
-        <Text>
-          We need some informations to build your profile, you can edit this
-          details later.
-        </Text>
-        <Avatar src={session.data?.user.avatar_url} />
-        <MultiStep size={4} currentStep={4} />
-      </Header>
-      <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
-        <label>
-          <Text size="sm">Profile image</Text>
-        </label>
-        <label>
-          <Text size="sm">About you</Text>
-          <TextArea {...register('bio')} />
-          <FormAnnotation size="sm">
-            Tell me something about you, this gonna be shown on your profile.
-          </FormAnnotation>
-        </label>
-        <Button type="submit" disabled={isSubmitting}>
-          Finish
-          <ArrowRight />
-        </Button>
-      </ProfileBox>
-    </Container>
+    <>
+      <NextSeo title="Wellcome to Ignite Call" noindex />
+      <Container>
+        <Header>
+          <Heading as="strong">Wellcome to Ignite Call</Heading>
+          <Text>
+            We need some informations to build your profile, you can edit this
+            details later.
+          </Text>
+          <Avatar src={session.data?.user.avatar_url} />
+          <MultiStep size={4} currentStep={4} />
+        </Header>
+        <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
+          <label>
+            <Text size="sm">Profile image</Text>
+          </label>
+          <label>
+            <Text size="sm">About you</Text>
+            <TextArea {...register('bio')} />
+            <FormAnnotation size="sm">
+              Tell me something about you, this gonna be shown on your profile.
+            </FormAnnotation>
+          </label>
+          <Button type="submit" disabled={isSubmitting}>
+            Finish
+            <ArrowRight />
+          </Button>
+        </ProfileBox>
+      </Container>
+    </>
   )
 }
 

@@ -4,6 +4,8 @@ import { Button, Text, TextArea, TextInput } from '@ignite-ui/react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import dayjs from 'dayjs'
+import { api } from '@/lib/axios.js'
+import { useRouter } from 'next/router.js'
 
 const confirmFormSchema = z.object({
   name: z.string().min(3, { message: 'The name need at least 3 letters.' }),
@@ -27,20 +29,33 @@ export function ConfirmStep({
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm<ConfirmFormData>({})
+
+  const router = useRouter()
+  const username = String(router.query.username)
   const describedDate = dayjs(schedulingDate).format('DD[ of ]MMMM[ of ]YYYY')
   const describedHour = dayjs(schedulingDate).format('HH:mm[h]')
 
-  function handleConfirmScheduling(data: ConfirmFormData) {}
+  async function handleConfirmScheduling(data: ConfirmFormData) {
+    const { name, email, observations } = data
+    await api.post(`/users/${username}/schedule`, {
+      name,
+      email,
+      observations,
+      date: schedulingDate,
+    })
+
+    onCancelConfirmation()
+  }
   return (
     <ConfirmForm onSubmit={handleSubmit(handleConfirmScheduling)} as="form">
       <FormHeader>
         <Text>
           <CalendarBlank />
-          22 de Set 2023
+          {describedDate}
         </Text>
         <Text>
           <Clock />
-          18:00 h
+          {describedHour}
         </Text>
       </FormHeader>
       <label>

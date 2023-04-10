@@ -3,6 +3,7 @@ import { ConfirmForm, FormActions, FormError, FormHeader } from './styles'
 import { Button, Text, TextArea, TextInput } from '@ignite-ui/react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
+import dayjs from 'dayjs'
 
 const confirmFormSchema = z.object({
   name: z.string().min(3, { message: 'The name need at least 3 letters.' }),
@@ -12,12 +13,22 @@ const confirmFormSchema = z.object({
 
 type ConfirmFormData = z.infer<typeof confirmFormSchema>
 
-export function ConfirmStep() {
+interface ConfirmStepProps {
+  schedulingDate: Date
+  onCancelConfirmation: () => void
+}
+
+export function ConfirmStep({
+  schedulingDate,
+  onCancelConfirmation,
+}: ConfirmStepProps) {
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm<ConfirmFormData>({})
+  const describedDate = dayjs(schedulingDate).format('DD[ of ]MMMM[ of ]YYYY')
+  const describedHour = dayjs(schedulingDate).format('HH:mm[h]')
 
   function handleConfirmScheduling(data: ConfirmFormData) {}
   return (
@@ -53,7 +64,7 @@ export function ConfirmStep() {
         <TextArea {...register('observations')} />
       </label>
       <FormActions>
-        <Button type="button" variant="tertiary">
+        <Button onClick={onCancelConfirmation} type="button" variant="tertiary">
           Cancel
         </Button>
         <Button type="submit" disabled={isSubmitting}>

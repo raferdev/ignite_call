@@ -1,4 +1,4 @@
-import { Calendar } from '@/components/Calendar/index'
+import { Calendar } from '@/components/Calendar'
 import {
   Container,
   TimePicker,

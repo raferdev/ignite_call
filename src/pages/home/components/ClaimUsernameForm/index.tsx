@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormAnnotation } from './styles'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/router.js'
+import { useRouter } from 'next/router'
 
 const claimUserNameFormSchema = z.object({
   username: z

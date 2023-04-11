@@ -4,8 +4,8 @@ import { Button, Text, TextArea, TextInput } from '@ignite-ui/react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import dayjs from 'dayjs'
-import { api } from '@/lib/axios.js'
-import { useRouter } from 'next/router.js'
+import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
 
 const confirmFormSchema = z.object({
   name: z.string().min(3, { message: 'The name need at least 3 letters.' }),
@@ -64,7 +64,7 @@ export function ConfirmStep({
         {errors.name && <FormError size="sm">{errors.name.message}</FormError>}
       </label>
       <label>
-        <Text size="sm">Full name</Text>
+        <Text size="sm">Email</Text>
         <TextInput
           type="email"
           placeholder="johndoe@exemple.com"

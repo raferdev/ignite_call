@@ -6,13 +6,13 @@ import {
   CalendarDay,
   CalendarHeader,
   CalendarTitle,
-} from './styles.js'
-import { getWeekDays } from '@/utils/get_week_day.js'
+} from './styles'
+import { getWeekDays } from '@/utils/get_week_day'
 import { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { useQuery } from '@tanstack/react-query'
-import { api } from '@/lib/axios.js'
-import { useRouter } from 'next/router.js'
+import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
 
 interface CalendarWeek {
   week: number
@@ -48,7 +48,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
   const { data: blockedDates } = useQuery<BlockedDates>(
     ['blocked-dates', currentDate.get('year'), currentDate.get('month')],
     async () => {
-      const response = await api.get(`/users/${username}/availability`, {
+      const response = await api.get(`/users/${username}/blocked_dates`, {
         params: {
           year: currentDate.get('year'),
           month: currentDate.get('month') + 1,
@@ -124,6 +124,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
       },
       [],
     )
+    console.log(calendarWeeks)
 
     return calendarWeeks
   }, [currentDate, blockedDates])

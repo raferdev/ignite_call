@@ -4,7 +4,6 @@ export const Container = styled(Box, {
   margin: '$6 auto 0',
   padding: 0,
   display: 'grid',
-  maxWidth: '100%',
   position: 'relative',
   variants: {
     isTimePickerOpen: {
@@ -31,7 +30,7 @@ export const TimePicker = styled('div', {
   top: 0,
   bottom: 0,
   right: 0,
-  width: 200,
+  width: 280,
 })
 
 export const TimePickerHeader = styled(Text, {

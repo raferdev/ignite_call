@@ -19,9 +19,9 @@ import {
   IntervalItem,
 } from './styles'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { convertTimeStringToMinutes } from '@/utils/convert_time_to_min.js'
-import { api } from '@/lib/axios.js'
-import { useRouter } from 'next/router.js'
+import { convertTimeStringToMinutes } from '@/utils/convert_time_to_min'
+import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 
 const timeIntervalsFormSchema = z.object({
@@ -52,7 +52,7 @@ const timeIntervalsFormSchema = z.object({
       (intervals) => {
         return intervals.every(
           (interval) =>
-            interval.startTimeInMinutes - 60 >= interval.endTimeInMinutes,
+            interval.endTimeInMinutes - 60 >= interval.startTimeInMinutes,
         )
       },
       {
@@ -79,6 +79,7 @@ export default function TimeIntervals() {
         { weekDay: 1, enabled: true, startTime: '08:00', endTime: '18:00' },
         { weekDay: 2, enabled: true, startTime: '08:00', endTime: '18:00' },
         { weekDay: 3, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 4, enabled: true, startTime: '08:00', endTime: '18:00' },
         { weekDay: 5, enabled: true, startTime: '08:00', endTime: '18:00' },
         { weekDay: 6, enabled: false, startTime: '08:00', endTime: '18:00' },
       ],

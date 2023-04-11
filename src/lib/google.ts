@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { google } from 'googleapis'
-import { prisma } from './prisma.js'
+import { prisma } from './prisma'
 import dayjs from 'dayjs'
 
 export async function getGoogleOAuthToken(userId: string) {

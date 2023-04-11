@@ -50,7 +50,7 @@ export const CalendarBody = styled('table', {
   fontFamily: '$default',
   borderSpacing: '0.25rem',
   tableLayout: 'fixed',
-
+  padding: 0,
   'thead th': {
     color: '$gray200',
     fontWeight: '$medium',

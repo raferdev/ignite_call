@@ -12,12 +12,12 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Container, Header } from '../styles'
 import { FormAnnotation, ProfileBox } from './styles'
-import { useSession } from 'next-auth/react/index'
+import { useSession } from 'next-auth/react'
 import { GetServerSideProps } from 'next'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
-import { getServerSession } from 'next-auth/next/index'
-import { api } from '@/lib/axios.js'
-import { useRouter } from 'next/router.js'
+import { getServerSession } from 'next-auth/next'
+import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 
 const updateProfileSchema = z.object({
@@ -55,12 +55,16 @@ export default function UpdateProfile() {
             We need some informations to build your profile, you can edit this
             details later.
           </Text>
-          <Avatar src={session.data?.user.avatar_url} />
           <MultiStep size={4} currentStep={4} />
         </Header>
         <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
           <label>
             <Text size="sm">Profile image</Text>
+            <Avatar
+              src={session.data?.user.avatar_url}
+              referrerPolicy="no-referrer"
+              alt={session.data?.user.name}
+            />
           </label>
           <label>
             <Text size="sm">About you</Text>
